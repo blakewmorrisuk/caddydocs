@@ -44,7 +44,9 @@ So `privacy.html` it is. `/privacy/` and `/privacy.html` both 308 to the canonic
 
 The address does not exist yet. It is printed on all four pages and it goes into App Store
 Connect as the support contact, which means an App Reviewer will try it. A support address
-that bounces is a rejection, so make this deliver **before** you attach the custom domain. Cloudflare dashboard ▸ caddydocs.com ▸ **Email** ▸
+that bounces is a rejection, so make this deliver **before** you attach the custom domain.
+
+Cloudflare dashboard ▸ caddydocs.com ▸ **Email** ▸
 Email Routing ▸ enable ▸ **Create address** `blake` ▸ forward to the inbox you actually read
 ▸ confirm the verification mail Cloudflare sends to that inbox. Cloudflare adds the MX and
 TXT records itself. Five minutes, free.
