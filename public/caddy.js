@@ -1,4 +1,4 @@
-/* Caddy — caddydocs.com
+/* Caddy · caddydocs.com
    Two jobs and nothing else: keep the frozen composition breathing, and fade a
    section in the first time it is seen. No dependencies.
 

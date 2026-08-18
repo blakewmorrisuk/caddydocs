@@ -22,5 +22,5 @@ const html = read('index.tpl.html')
   .replaceAll('{{MARK}}', mark);
 
 if (html.includes('{{')) throw new Error('unfilled placeholder in template');
-writeFileSync(new URL('../index.html', here), html);
+writeFileSync(new URL('../public/index.html', here), html);
 console.log('index.html', html.length, 'bytes');

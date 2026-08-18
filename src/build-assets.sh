@@ -4,7 +4,7 @@
 # its shipping app icon, resized with sips only where the page displays them smaller.
 set -euo pipefail
 KIT="/Users/blakewilliammorris/Desktop/M/Caddy Ads/Caddy_NoGravity_Marketing_Kit_FLAT"
-OUT="$(cd "$(dirname "$0")" && pwd)/img"
+OUT="$(cd "$(dirname "$0")/.." && pwd)/public/assets/img"
 mkdir -p "$OUT"
 
 # --- expanded Caddies, full size, for the explanation sections (640 x 1048 native)
