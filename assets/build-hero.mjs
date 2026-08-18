@@ -27,7 +27,7 @@ const TABS = [
   // band 2, middle
   { n:'research',  t:'green',   b:2, x:19, y:34, r:-37, drop:'sm' },
   { n:'contracts', t:'sky',     b:2, x:81, y:59, r: 17, sm:[82, 78] },
-  { n:'bio101',    t:'amber',   b:2, x:77, y:31, r: 68, drop:'md' },
+  { n:'bio101',    t:'amber',   b:2, x:77, y:31, r: 68, drop:'sm' },
   { n:'msj',       t:'indigo',  b:2, x:23, y:65, r: 79, sm:[19, 82] },
   { n:'contracts', t:'fairway', b:2, x:62, y:92, r:-71, drop:'lg' },
   // band 1, near: large, sharp, heavy shadow, two of them cropped by the frame
