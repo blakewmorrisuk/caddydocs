@@ -11,7 +11,6 @@ mkdir -p "$OUT"
 cp "$KIT/Product_01_BIO101_Library_with_PDF_reader_alpha.png" "$OUT/caddy-library.png"
 cp "$KIT/Product_04_BIO101_Notes_populated_alpha.png"         "$OUT/caddy-notes.png"
 cp "$KIT/Product_07_Research_topEdge_Library_alpha.png"        "$OUT/caddy-topedge.png"
-cp "$KIT/Product_08_NoGravity_floating_tabs_alpha.png"         "$OUT/caddy-nogravity.png"
 
 # --- the same captures at half size for the hero, where they sit far back,
 #     dimmed and blurred. Half of native is still above their rendered size there.

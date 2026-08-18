@@ -5,8 +5,8 @@ no third-party requests. Everything is static.
 
 ```
 index.html            the landing page
-privacy/index.html    → https://caddydocs.com/privacy
-support/index.html    → https://caddydocs.com/support
+privacy.html          → https://caddydocs.com/privacy
+support.html          → https://caddydocs.com/support
 404.html
 caddy.css  caddy.js   one stylesheet, one script
 assets/img/           web derivatives of the marketing kit (see assets/build-assets.sh)
@@ -16,8 +16,17 @@ robots.txt  sitemap.xml  favicon.ico
 
 **The URL shape is load-bearing.** The app opens `https://caddydocs.com/privacy` and
 `https://caddydocs.com/support` from Settings ▸ General
-(`~/Desktop/M/Caddy/mac/Sources/Support/Brand.swift:8-9`). Both are directory indexes, so
-those exact paths answer 200 with no trailing slash. Do not rename them to `privacy.html`.
+(`~/Desktop/M/Caddy/mac/Sources/Support/Brand.swift:8-9`), and those two strings also go
+into App Store Connect. They are flat `.html` files on purpose. Measured against
+`wrangler pages dev`, which is the real Pages router:
+
+| file layout | `/privacy` |
+|---|---|
+| `privacy.html` | **200** |
+| `privacy/index.html` | 308 redirect to `/privacy/` |
+
+So `privacy.html` it is. `/privacy/` and `/privacy.html` both 308 to the canonical
+`/privacy`. Do not move these into folders.
 
 ---
 
@@ -55,8 +64,8 @@ certificate itself. Give it a few minutes.
 ## Verify before you tell Apple about it
 
 ```
-curl -sI https://caddydocs.com/privacy | head -1     # HTTP/2 200
-curl -sI https://caddydocs.com/support | head -1     # HTTP/2 200
+curl -sI https://caddydocs.com/privacy | head -1     # HTTP/2 200, not a redirect
+curl -sI https://caddydocs.com/support | head -1     # HTTP/2 200, not a redirect
 curl -sI https://caddydocs.com/        | head -1     # HTTP/2 200
 ```
 
@@ -80,6 +89,16 @@ real pages open in your browser. That is exactly the path App Review takes under
   files.user-selected.read-write, files.bookmarks.app-scope, and nothing else, so no
   network entitlement) and `mac/Resources/PrivacyInfo.xcprivacy`. If the app ever gains an
   entitlement, an analytics library, or an update check, the policy has to change first.
+
+## Checking the router before you ship a change
+
+`wrangler pages dev` runs the same routing Pages runs, which is how the flat-file decision
+above was made rather than guessed:
+
+```
+npx wrangler pages dev ~/Desktop/M/caddydocs --port 8791
+curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8791/privacy   # 200
+```
 
 ## The App Store badge
 
@@ -109,6 +128,10 @@ macOS privacy controls:
 rsync -a --exclude 'assets/*.mjs' --exclude 'assets/*.tpl.html' ~/Desktop/M/caddydocs/ /tmp/caddysite/
 cd /tmp/caddysite && python3 -m http.server 8788
 ```
+
+Note that `python3 -m http.server` gets the extensionless URLs wrong in the other
+direction (it 301s `/privacy` to `/privacy/`). Use `wrangler pages dev` whenever the answer
+matters.
 
 ## Where the pictures came from
 
