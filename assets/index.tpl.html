@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caddy — Little Workstations for Big Ideas</title>
+<meta name="description" content="Caddy puts a little workstation on the edge of your Mac's screen for each thing you are working on. Documents, notes, and a reading pane, one click away.">
+<link rel="canonical" href="https://caddydocs.com/">
+<meta name="theme-color" content="#000000">
+<meta property="og:site_name" content="Caddy">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Caddy — Little Workstations for Big Ideas">
+<meta property="og:description" content="A little workstation on the edge of your Mac's screen for each thing you are working on.">
+<meta property="og:url" content="https://caddydocs.com/">
+<meta property="og:image" content="https://caddydocs.com/assets/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Caddy tabs floating in No Gravity, frozen around the words Little Workstations for Big Ideas.">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/icon-32.png" sizes="32x32">
+<link rel="icon" href="/assets/img/icon-512.png" sizes="512x512">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="stylesheet" href="/caddy.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Caddy's tabs, drawn by the app itself. The geometry below came out of a vector PDF
+     rendered by EdgeTabView/TabFill and the labels are outlined from SF Pro Rounded
+     Semibold 12 pt, the same type the app sets them in. Only the pill fill is
+     parameterised, because the tint is a per-Caddy setting in the product. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+{{TAB_SYMBOLS}}  </defs>
+</svg>
+
+<header class="nav">
+  <a class="nav__home" href="/" aria-label="Caddy, home">
+    {{MARK}}
+    <span class="nav__name">Caddy</span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#letter">About</a>
+    <a href="/support">Support</a>
+    <a href="/privacy">Privacy</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="field field--back" data-field>
+      <img class="expanded" src="/assets/img/hero-library.png" alt="" width="320" height="524" fetchpriority="low"
+           style="--x:17%;--y:44%;--w:min(19vw,248px);--rot:-8;--o:.34;--blur:1.5px" data-drop="md">
+      <img class="expanded" src="/assets/img/hero-notes.png" alt="" width="320" height="524" fetchpriority="low"
+           style="--x:84%;--y:61%;--w:min(17.5vw,228px);--rot:6;--o:.29;--blur:2px" data-drop="lg">
+      <img class="expanded" src="/assets/img/hero-topedge.png" alt="" width="320" height="398" fetchpriority="low"
+           style="--x:69%;--y:15%;--w:min(14vw,184px);--rot:-3;--o:.14;--blur:3.4px" data-drop="lg">
+    </div>
+
+    <div class="field field--stage" data-field>
+{{HERO_TABS}}
+{{HERO_CONFETTI}}
+    </div>
+
+    <div class="hero__type">
+      <span class="lockup">{{MARK}}<span>Caddy</span></span>
+      <h1 class="tagline">Little Workstations<br>for Big Ideas</h1>
+      <p class="hero__sub">A Mac app that puts a tab on the edge of your screen for each thing you are working on. Click it and the work is there. Click it again and it puts itself away.</p>
+      <!-- App Store slot. When Caddy Docs is approved, this becomes the official
+           "Download on the Mac App Store" badge linked to the store URL. Apple ties the
+           badge artwork to a working link, so until then it stays as plain text. -->
+      <p class="store"><span>Coming to the Mac App Store<small>macOS 15 or later. Apple silicon and Intel.</small></span></p>
+    </div>
+
+    <a class="scroll-cue" href="#what">What a Caddy is</a>
+  </section>
+
+  <section class="section" id="what">
+    <div class="wrap split reveal">
+      <div>
+        <p class="eyebrow">What a Caddy is</p>
+        <h2 class="lede">A tab on the edge of your screen, and everything that belongs to it.</h2>
+        <div class="body">
+          <p>Make one for a class, a client, a case, a chapter, an assignment. It docks to the left, the right, or the top of the display and waits there, out of the way of whatever you are actually doing.</p>
+          <p>Click the tab and the Caddy opens beside your work. Click it again and it puts itself back. Nothing takes over the screen, and nothing asks you to move somewhere new to get at your files.</p>
+        </div>
+        <div class="strip" aria-hidden="true">
+{{STRIP}}        </div>
+        <p class="caption">Four Caddies in four of the sixteen tints.</p>
+      </div>
+      <div class="shot shot--drawer">
+        <img src="/assets/img/caddy-topedge.png" alt="A Caddy named Research hanging from the top edge of a display, open, with a Library of four files above a reading pane." width="588" height="731" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="inside">
+    <div class="wrap split split--flip reveal">
+      <div>
+        <p class="eyebrow">What opens</p>
+        <h2 class="lede">Your Library, your Notes, and the document you were reading.</h2>
+        <div class="body">
+          <p>The <strong>Library</strong> holds the files you put in a Caddy, in sections you name yourself. <strong>Notes</strong> live in the same place as the documents they are about. The <strong>reading pane</strong> opens PDFs and Word files, and it will stack two of them so you can keep a source up while you write.</p>
+          <p>Drag a pane by its title strip, drag the seams between them, and the layout stays the way you left it.</p>
+          <p>Caddy reads your files where they already live. It does not copy them and it does not change them. When you want to edit, Open in Word hands the document back to the app that owns it.</p>
+        </div>
+      </div>
+      <div class="shot stack">
+        <img class="stack__back" src="/assets/img/caddy-notes.png" alt="The same Caddy showing its Notes tab, a typed lecture recap above the same PDF in the reading pane." width="640" height="1048" loading="lazy" decoding="async">
+        <img class="stack__front" src="/assets/img/caddy-library.png" alt="A Caddy named BIO 101, open. A Library lists a study guide, a midterm review, a note and two Week 8 files, and below it a reading pane shows a lecture PDF." width="640" height="1048" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="physics">
+    <div class="wrap reveal">
+      <div class="centred">
+        <p class="eyebrow">What they do</p>
+        <h2 class="lede">Slide them, throw them, save them, and let go of gravity.</h2>
+        <div class="body">
+          <p>A tab slides along its edge. Pull it off and it comes with you, and you can drop it on another edge or throw it clean across the display. Give each Caddy one of sixteen colors so you know which is which without reading. Close one and it saves; open it later and it comes back the way you left it.</p>
+          <p>And in the menu bar there is <strong>No Gravity Caddy</strong>, which cuts every tab loose to drift, tumble, and bounce off the sides of your screen until you click one and it flies home.</p>
+        </div>
+      </div>
+      <div class="zerog" data-field aria-label="Caddy tabs floating in No Gravity mode" role="img">
+{{PANEL}}
+      </div>
+      <p class="caption centred">No Gravity is real physics rather than a loop. Every tab is a capsule with mass and inertia: a wandering nudge that changes direction every nine seconds, 0.55 restitution off the walls of the display, and about a minute to cross a 1920-wide screen. It is off by default, and it pauses when macOS asks for Reduce Motion.</p>
+    </div>
+  </section>
+
+  <section class="letter" id="letter">
+    <div aria-hidden="true" class="letter__m">M</div>
+    <div class="wrap">
+      <div class="letter__body reveal">
+        <p class="eyebrow">From the person who made it</p>
+        <p class="letter__open">Hello, my name is Blake.</p>
+        <p>A Caddy is a little workstation. It looks like a bookmark tab sitting on the edge of your screen, and it holds one body of work: a class, a client, a case, a project, whatever you are actually doing. Click the tab and everything for that work opens right there. Your documents, your notes, a reading pane. Click it again and it goes back to the edge and stays out of your way.</p>
+        <p>I think Caddy is for anybody who keeps too many windows open. Students, writers, paralegals, lawyers, anybody with four things going at once and no good place to put the other three.</p>
+        <p>I also want to say that Caddy is fun. The tabs slide along the edge of the display. You can pull one off and throw it across the screen, and it will land where you threw it. They come in sixteen colors. They have effects and small animations. There is a mode called No Gravity that lets them all float free, drift, and bump into each other and off the sides of your screen, until you click one and it flies back to the rail. None of that makes you faster at anything. I put it in because I liked it.</p>
+        <p>Caddy started right after I graduated law school. I was clerking, and the attorneys I work for would hand me an assignment on Monday and another one on Tuesday, and by Thursday I had documents for six different matters scattered across a desktop and no idea which folder held what. I wanted something that kept each assignment together and stayed quiet in between. Nothing did exactly that, so I built it.</p>
+        <p>It began as a Microsoft Word add-in, because that is where most of my work happens. Then it outgrew the pane, and it became the Mac app you are looking at now.</p>
+        <p>I made this with a lot of love. I use it every single day. I truly love it, and I hope you do too.</p>
+        <p class="sign">Kind Regards,<b>Blake</b><b>Caddy</b></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap reveal">
+      <span class="lockup">{{MARK}}<span>Caddy</span></span>
+      <h2 class="tagline">Little Workstations for Big Ideas</h2>
+      <p class="store"><span>Coming to the Mac App Store<small>macOS 15 or later. Apple silicon and Intel.</small></span></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__row">
+      <p style="margin:0">&copy; 2026 Caddy Legal LLC</p>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:blake@caddydocs.com">blake@caddydocs.com</a>
+      </nav>
+    </div>
+    <p class="foot__legal">Caddy is a macOS app. It is listed on the Mac App Store as Caddy Docs. Mac, macOS and App Store are trademarks of Apple Inc.</p>
+  </div>
+</footer>
+
+<script src="/caddy.js" defer></script>
+</body>
+</html>

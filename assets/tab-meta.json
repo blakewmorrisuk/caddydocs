@@ -1,0 +1,22 @@
+{
+  "bio101": {
+    "label": "BIO 101",
+    "length": 89,
+    "ratio": 2.9677
+  },
+  "msj": {
+    "label": "Draft for MSJ",
+    "length": 122,
+    "ratio": 4.0323
+  },
+  "research": {
+    "label": "Research",
+    "length": 99,
+    "ratio": 3.2903
+  },
+  "contracts": {
+    "label": "Contracts",
+    "length": 102,
+    "ratio": 3.3871
+  }
+}
