@@ -182,12 +182,14 @@ a:hover { text-decoration-color: var(--accent); }
 
 .hero__sub {
   margin: clamp(1.3rem, 2.6vw, 2rem) auto 0;
-  max-width: 30rem;
+  max-width: 33rem;
   color: var(--text-soft);
   font-size: clamp(0.95rem, 1.15vw, 1.0625rem);
-  text-wrap: balance;
   text-shadow: 0 0 30px rgba(0, 0, 0, 0.95);
 }
+/* Two groups, each holding whole sentences. The line breaks after "assignment." on a
+   wide screen and between sentences on a narrow one, so no fragment is ever orphaned. */
+.hero__sub span { display: inline-block; }
 
 /* App Store slot. Plain text until there is a real store URL to put behind a badge. */
 .store {
