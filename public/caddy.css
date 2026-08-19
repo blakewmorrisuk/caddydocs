@@ -185,11 +185,29 @@ a:hover { text-decoration-color: var(--accent); }
   max-width: 33rem;
   color: var(--text-soft);
   font-size: clamp(0.95rem, 1.15vw, 1.0625rem);
+  line-height: 1.5;
   text-shadow: 0 0 30px rgba(0, 0, 0, 0.95);
 }
-/* Two groups, each holding whole sentences. The line breaks after "assignment." on a
-   wide screen and between sentences on a narrow one, so no fragment is ever orphaned. */
-.hero__sub span { display: inline-block; }
+/* Four lines, each its own claim, each quieter than the one above it. */
+.hero__sub span { display: block; }
+.sub__lead { color: var(--text); }
+.sub__line { font-size: 0.9em; color: var(--text-faint); }
+.sub__lead + .sub__line { margin-top: 0.7em; }
+
+/* The last claim is the one Blake is a little embarrassed about, so it is set almost
+   at the ground: a few steps above black, the way the M is. Rest on the line and it
+   comes up. */
+.sub__whisper {
+  font-size: 0.9em;
+  color: rgba(242, 245, 239, 0.11);
+  text-shadow: none;
+  transition: color 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.hero__sub:hover .sub__whisper,
+.hero__sub:focus-within .sub__whisper,
+.sub__whisper:hover { color: rgba(242, 245, 239, 0.44); }
+@media (prefers-contrast: more) { .sub__whisper { color: rgba(242, 245, 239, 0.5); } }
+@media (prefers-reduced-motion: reduce) { .sub__whisper { transition: none; } }
 
 /* App Store slot. Plain text until there is a real store URL to put behind a badge. */
 .store {
