@@ -18,20 +18,20 @@ const TINT = {
 // thin the cluster instead of shrinking it into illegibility.
 const TABS = [
   // band 3, far: small, dim, soft
-  { n:'research',  t:'teal',    b:3, x:31, y:21, r:-24, drop:'md' },
+  { n:'research',  t:'teal',    b:3, x:31, y:21, r:-24, sm:[67, 24] },
   { n:'bio101',    t:'navy',    b:3, x:69, y:77, r: 33, drop:'sm' },
   { n:'contracts', t:'olive',   b:3, x:64, y:19, r: 58, drop:'lg' },
-  { n:'msj',       t:'coral',   b:3, x:35, y:75, r:-49, drop:'sm' },
+  { n:'msj',       t:'coral',   b:3, x:35, y:75, r:-49, sm:[72, 93] },
   { n:'bio101',    t:'orchid',  b:3, x:49, y:11, r:  9, drop:'md' },
   { n:'research',  t:'walnut',  b:3, x:52, y:87, r:-16, drop:'lg' },
   // band 2, middle
-  { n:'research',  t:'green',   b:2, x:19, y:34, r:-37, drop:'sm' },
-  { n:'contracts', t:'sky',     b:2, x:81, y:59, r: 17, sm:[82, 78] },
+  { n:'research',  t:'green',   b:2, x:19, y:34, r:-37, sm:[25, 27] },
+  { n:'contracts', t:'sky',     b:2, x:81, y:59, r: 17, sm:[84, 76] },
   { n:'bio101',    t:'amber',   b:2, x:77, y:31, r: 68, drop:'sm' },
-  { n:'msj',       t:'indigo',  b:2, x:23, y:65, r: 79, sm:[19, 82] },
+  { n:'msj',       t:'indigo',  b:2, x:23, y:65, r: 79, sm:[16, 80] },
   { n:'contracts', t:'fairway', b:2, x:62, y:92, r:-71, drop:'lg' },
   // band 1, near: large, sharp, heavy shadow, two of them cropped by the frame
-  { n:'msj',       t:'graphite',b:1, x: 9, y:80, r:-63, sm:[48, 92] },
+  { n:'msj',       t:'graphite',b:1, x: 9, y:80, r:-63, sm:[45, 92] },
   { n:'bio101',    t:'cherry',  b:1, x:91, y:17, r: 41, sm:[89, 14] },
   { n:'contracts', t:'plum',    b:1, x: 3, y:21, r: 86, sm:[ 5, 13] },
 ];

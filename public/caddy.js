@@ -47,7 +47,7 @@
     3: { ax: 5,  ay: 4,  ar: 6.4, par: 3.5 }
   };
 
-  var pieces = [], expanded = [];
+  var pieces = [];
   fields.forEach(function (field) {
     field.querySelectorAll('.tab, .chip').forEach(function (el) {
       var band = el.classList.contains('tab--b1') || el.classList.contains('chip--b1') ? 1
@@ -61,7 +61,6 @@
         dx: 0, dy: 0, dr: 0
       });
     });
-    field.querySelectorAll('.expanded').forEach(function (el) { expanded.push(el); });
   });
 
   var px = 0, py = 0, tx = 0, ty = 0, seen = 0, running = false, raf = 0;
@@ -83,11 +82,6 @@
         s.el.style.setProperty('--dy', dy.toFixed(2) + 'px');
         s.el.style.setProperty('--dr', dr.toFixed(2));
       }
-    }
-
-    for (var j = 0; j < expanded.length; j++) {
-      expanded[j].style.setProperty('--dx', (px * 2.4).toFixed(2) + 'px');
-      expanded[j].style.setProperty('--dy', (py * 2.4).toFixed(2) + 'px');
     }
 
     raf = requestAnimationFrame(frame);
@@ -134,10 +128,6 @@
       s.el.style.removeProperty('--dx');
       s.el.style.removeProperty('--dy');
       s.el.style.removeProperty('--dr');
-    });
-    expanded.forEach(function (el) {
-      el.style.removeProperty('--dx');
-      el.style.removeProperty('--dy');
     });
   });
 })();

@@ -95,7 +95,6 @@ a:hover { text-decoration-color: var(--accent); }
 }
 
 .field { position: absolute; inset: 0; pointer-events: none; }
-.field--back  { z-index: -2; }
 .field--stage { z-index: 1; }
 /* depth is z-index, so the generated tabs and confetti interleave correctly whatever
    order they were written in. Confetti follows the tabs in the markup, which is what
@@ -103,20 +102,6 @@ a:hover { text-decoration-color: var(--accent); }
 .tab--b3, .chip--b3 { z-index: 1; }
 .tab--b2, .chip--b2 { z-index: 2; }
 .tab--b1, .chip--b1 { z-index: 3; }
-
-/* expanded Caddies, pushed far back: the answer to what the little tabs become */
-.expanded {
-  position: absolute;
-  left: var(--x); top: var(--y);
-  width: var(--w);
-  transform:
-    translate(-50%, -50%)
-    translate3d(var(--dx, 0px), var(--dy, 0px), 0)
-    rotate(calc(var(--rot) * 1deg));
-  opacity: var(--o);
-  filter: blur(var(--blur)) saturate(0.55) brightness(0.82) contrast(0.92);
-  mask-image: radial-gradient(58% 56% at 50% 44%, #000 14%, transparent 92%);
-}
 
 /* one floating Caddy */
 .tab {
@@ -398,26 +383,21 @@ code {
 @media (prefers-reduced-motion: reduce) {
   /* the composition was authored in this frozen state; it is the default, not a fallback */
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .tab, .chip, .expanded { transition: none !important; animation: none !important; }
+  .tab, .chip { transition: none !important; animation: none !important; }
 }
 
 /* ───────────────────────────────────────  responsive  ── */
 
 @media (max-width: 74rem) {
-  .expanded[data-drop="lg"] { display: none; }
   .tab[data-drop="lg"] { display: none; }
 }
 @media (max-width: 56rem) {
-  .expanded[data-drop="md"] { display: none; }
   .tab[data-drop="md"] { display: none; }
   .chip--b3 { opacity: calc(var(--o) * 0.6) !important; }
   .stack { max-width: 27rem; margin-inline: auto; }
   .split--flip > :first-child { order: 0; }
 }
 @media (max-width: 40rem) {
-  /* on a phone the expanded captures cannot read behind the type, so they leave the
-     hero entirely and do their work in the sections below, where they are legible */
-  .hero .expanded { display: none; }
   .tab[data-drop="sm"] { display: none; }
   .chip[data-b="3"] { display: none; }
   /* the five survivors take up phone positions, clear of the type block */
