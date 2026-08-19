@@ -88,13 +88,16 @@ real pages open in your browser. That is exactly the path App Review takes under
 
 ## Two things that must stay in step with the app
 
-- **The copyright holder.** Every page footer and the privacy policy say
-  **Caddy Legal LLC**. The build still says `© 2026 Blake Morris`. Change
-  `~/Desktop/M/Caddy/mac/project.yml` line 56 to
-  `NSHumanReadableCopyright: "© 2026 Caddy Legal LLC"`, rerun `scripts/archive.sh`, and put
-  the same string in App Store Connect ▸ Copyright. If you decide to keep it in your own
-  name instead, change it in `src/index.tpl.html` (then rebuild) and in `public/privacy.html`,
-  `public/support.html` and `public/404.html`, plus the "made by" line at the top of the policy.
+- **The copyright holder is Blake Morris.** Settled 2026-08-18: the Apple developer account
+  stays an Individual account for launch, so the seller, the signed binary
+  (`project.yml` line 56, `NSHumanReadableCopyright: "© 2026 Blake Morris"`) and App Store
+  Connect ▸ Copyright all read Blake Morris, and the site matches. CADDY LEGAL LLC exists
+  (filed with the KY Secretary of State 8/14/2026) but owning the app would need an
+  Organization account, a D-U-N-S number and an app transfer, which is a post-launch move.
+  A privacy policy naming a different entity than the seller is a real inconsistency, so if
+  the LLC ever does take ownership, change it in `src/index.tpl.html` (then rebuild) and in
+  `public/privacy.html`, `public/support.html` and `public/404.html`, plus the "made by" line
+  at the top of the policy, in the same pass as the plist string.
 - **The privacy policy is a claim about the shipping binary.** Every sentence on
   `/privacy` was checked against `mac/Caddy.entitlements` (app-sandbox,
   files.user-selected.read-write, files.bookmarks.app-scope, and nothing else, so no
