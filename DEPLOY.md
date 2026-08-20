@@ -5,7 +5,7 @@ no third-party requests. Everything is static.
 
 ```
 public/                 ← THE DEPLOY ROOT. Only this folder goes to Cloudflare.
-  index.html            the landing page
+  index.html            the landing page (generated from src/index.tpl.html)
   privacy.html          → https://caddydocs.com/privacy
   support.html          → https://caddydocs.com/support
   404.html
@@ -116,11 +116,13 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8791/privacy   # 200
 
 ## The App Store badge
 
-The store slot on the landing page and in the closing section is plain text,
-**Coming to the Mac App Store**. Apple ties the badge artwork to a working store link, so
-there is no badge and no fake href. After approval, search `public/index.html` for
-`App Store slot` and swap the `<p class="store">` for Apple's official badge image linked
-to the real URL. Two lines, both marked in the HTML.
+The store slot in the hero and in the closing section is plain text, **Coming to the Mac
+App Store**, over a small line reading **$9.99 · macOS 15 or later. Apple silicon and
+Intel.** Apple ties the badge artwork to a working store link, so there is no badge and no
+fake href. After approval, search `src/index.tpl.html` for `App Store slot` and swap the
+`<p class="store">` for Apple's official badge image linked to the real URL, then rebuild.
+Two slots, both marked in the template. Apple's own product page carries the price, so the
+price line can go at the same time.
 
 ## Rebuilding the generated parts
 
@@ -132,8 +134,16 @@ the next time anyone runs the build. The real source is the template.
 node src/build-tabs.mjs     # tab <symbol> set from the kit's vector renders
 node src/build-hero.mjs     # the frozen composition and the No Gravity panel
 node src/build-site.mjs     # index.tpl.html + fragments → public/index.html
-src/build-assets.sh         # the images, from the marketing kit
+src/build-assets.sh         # the images, from the kit and from the app's own captures
 ```
+
+`src/tints.json` holds Caddy's sixteen `WorkspaceTint` hex values and is read by both
+`build-hero.mjs` and `build-site.mjs`, so the hero, the No Gravity panel and the colour
+field on the landing page can never disagree with the product.
+
+**`build-hero.mjs` is effectively frozen.** The composition is authored by hand in that
+file and the confetti is seeded, so re-running it is safe and reproduces the same instant
+byte for byte. Changing the `TABS` array changes the hero, which is not a casual edit.
 
 Preview locally from a `/tmp` mirror, because a local server cannot read `~/Desktop` under
 macOS privacy controls:
@@ -155,6 +165,29 @@ at the top of `public/index.html` were lifted from
 geometry came out of a vector PDF rendered by `EdgeTabView`/`TabFill` with the labels
 outlined from SF Pro Rounded Semibold 12 pt. The only change is that the pill fill reads
 `currentColor`, so a page instance can carry any of the sixteen real `WorkspaceTint` hex
-values. The expanded Caddies are the kit's transparent product captures, unretouched. The
-drift in `caddy.js` is scaled down from `Sources/Windows/ZeroGravityMath.swift`; the numbers
-are in the comment at the top of the file.
+values. The three tabs riding the right edge of the display in "What a Caddy is" are those
+same symbols, rotated a quarter turn and clipped by the frame, with their proportions read
+out of `src/tab-meta.json` so a rotated tab cannot be drawn at the wrong shape. The drift
+in `caddy.js` is scaled down from `Sources/Windows/ZeroGravityMath.swift`; the numbers are
+in the comment at the top of the file.
+
+The expanded Caddies are unretouched transparent captures of the running app, and they come
+from two places, both wired up in `src/build-assets.sh`:
+
+| file | from | shows |
+|---|---|---|
+| `caddy-topedge.png` | the 2026-08-18 marketing kit (twin of `c884cfb`) | a Caddy open from the top edge |
+| `caddy-panes.png` | `~/Desktop/M/Caddy/rc/screens/store/drawer-panes.png` | two documents open at once, Open in Preview over Open in Word |
+| `caddy-notes.png` | `~/Desktop/M/Caddy/rc/screens/store/drawer-notes.png` | Notes above the same source, with Save & Close |
+
+The two `rc/` captures are from the release build, about three hours newer than the kit, and
+they are the only pictures anywhere that show the pane model and the Word handoff. Note that
+`rc/screens/` is a scratch QA directory inside the app repo: copy out of it, never write to
+it, and never point the site at a path inside another repo at request time.
+
+**The favicons are the shipping app icon**, taken from
+`~/Desktop/M/Caddy/mac/Resources/Assets.xcassets/AppIcon.appiconset/`. That icon changed
+with build 3 on 2026-08-19, from the golf flag to the green Caddy tab, and the site was
+carrying the old one until this pass. If the app icon changes again, re-run
+`src/build-assets.sh`. The menu-bar mark is a different thing and is still the pin flag
+(`Sources/App/StatusItem.swift`), which is what `src/mark.svg` draws, so that file stays.

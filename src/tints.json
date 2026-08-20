@@ -1,0 +1,19 @@
+{
+  "_note": "Caddy's sixteen WorkspaceTint values, verbatim from Sources/Model/Workspace.swift (commit c884cfb). Order is the app's own order. Shared by build-hero.mjs and build-site.mjs so the page can never drift from the product.",
+  "green": "#1c4429",
+  "fairway": "#2f6b3a",
+  "blue": "#1f4e8c",
+  "teal": "#146c74",
+  "plum": "#5b2d6e",
+  "coral": "#b6473a",
+  "amber": "#a8631a",
+  "graphite": "#3a3f44",
+  "navy": "#1c2b4a",
+  "rose": "#9c3457",
+  "sky": "#2a6f97",
+  "indigo": "#3b3f8f",
+  "orchid": "#8c2f6b",
+  "walnut": "#6b4a2a",
+  "cherry": "#8b1e2b",
+  "olive": "#55672a"
+}

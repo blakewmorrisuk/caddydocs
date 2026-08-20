@@ -2,14 +2,10 @@
 // with JavaScript off and never depends on script to be beautiful.
 // Tab placement is authored by hand below. Confetti is seeded, so the same
 // "impossible instant" comes out of every run.
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 
-const TINT = {
-  green:'#1c4429', fairway:'#2f6b3a', blue:'#1f4e8c', teal:'#146c74', plum:'#5b2d6e',
-  coral:'#b6473a', amber:'#a8631a', graphite:'#3a3f44', navy:'#1c2b4a', rose:'#9c3457',
-  sky:'#2a6f97', indigo:'#3b3f8f', orchid:'#8c2f6b', walnut:'#6b4a2a', cherry:'#8b1e2b',
-  olive:'#55672a',
-};
+// Caddy's sixteen WorkspaceTint values, shared with build-site.mjs.
+const { _note, ...TINT } = JSON.parse(readFileSync(new URL('./tints.json', import.meta.url), 'utf8'));
 
 // Depth reads from the middle outward: the pieces nearest the centre are the ones
 // furthest from the camera, so the tagline sits in clear air by construction.
