@@ -138,17 +138,33 @@ node src/stamp-assets.mjs   # ALWAYS LAST. see below
 src/build-assets.sh         # the images, from the kit and from the app's own captures
 ```
 
-**`stamp-assets.mjs` is not optional, and it runs last.** The HTML revalidates on every
-request (`max-age=0, must-revalidate`) but Cloudflare hands out `/caddy.css` and
-`/caddy.js` with a four-hour browser TTL, and their filenames never change. So any deploy
-that touches markup and styles together gives a returning visitor new HTML with old CSS.
-That is not hypothetical: on 2026-08-20 it shipped a landing page whose colour field had
-lost its height rule and drew sixteen full-size tabs stacked in a column. The stamp puts a
-content hash in the query string, so new HTML asks for a URL no browser has seen and the
-correct styles land on the next page view, with no hard reload and no shortened cache. It
-rewrites all four pages, including the flat `privacy.html` and `support.html`, and it is
-idempotent, so running it twice is free. **Run it after any hand edit to `caddy.css` or
-`caddy.js`, not just after `build-site.mjs`.**
+**`stamp-assets.mjs` is not optional, and it runs last.** The pages revalidate on every
+request (`max-age=0, must-revalidate`), but nothing they load does:
+
+| URL | Cache-Control | who holds it |
+|---|---|---|
+| `/` `/privacy` `/support` | `max-age=0, must-revalidate` | nobody, always fresh |
+| `/caddy.css` `/caddy.js` | `max-age=14400` (Cloudflare's dashboard TTL, not `_headers`) | the browser, 4 hours |
+| `/assets/*` | `max-age=31536000, immutable` | the browser **and the edge**, one year |
+
+Filenames never change, so replacing a file in place changes nothing any cache can see.
+Both halves of that bit on 2026-08-20, within an hour of the homepage overhaul:
+
+- browsers holding the previous `caddy.css` got the new markup without the new rules, and
+  the colour field lost its height and drew sixteen full-size tabs stacked in a column;
+- the Cloudflare edge was still serving the previous `caddy-notes.png` and the retired
+  golf-flag icon almost twelve hours after the deploy, `age: 42562`, because `immutable`
+  had been promised about a URL whose bytes had in fact changed.
+
+The stamp puts a ten-character content hash in the query string on every local asset the
+pages reference. New HTML then asks for a URL nothing has ever cached, so the fix lands on
+the next page view with no hard reload, no purge, and no shortened cache. It also makes
+`immutable` honest, since a changed file now really does get a new URL.
+
+It rewrites all four pages, including the flat `privacy.html` and `support.html`, and it is
+idempotent, so running it twice is free. `og.jpg` is deliberately skipped: it is an absolute
+URL read by scrapers that may drop a query string. **Run it after `build-site.mjs`, after
+`build-assets.sh`, and after any hand edit to `caddy.css` or `caddy.js`.**
 
 `src/tints.json` holds Caddy's sixteen `WorkspaceTint` hex values and is read by both
 `build-hero.mjs` and `build-site.mjs`, so the hero, the No Gravity panel and the colour
