@@ -134,8 +134,21 @@ the next time anyone runs the build. The real source is the template.
 node src/build-tabs.mjs     # tab <symbol> set from the kit's vector renders
 node src/build-hero.mjs     # the frozen composition and the No Gravity panel
 node src/build-site.mjs     # index.tpl.html + fragments → public/index.html
+node src/stamp-assets.mjs   # ALWAYS LAST. see below
 src/build-assets.sh         # the images, from the kit and from the app's own captures
 ```
+
+**`stamp-assets.mjs` is not optional, and it runs last.** The HTML revalidates on every
+request (`max-age=0, must-revalidate`) but Cloudflare hands out `/caddy.css` and
+`/caddy.js` with a four-hour browser TTL, and their filenames never change. So any deploy
+that touches markup and styles together gives a returning visitor new HTML with old CSS.
+That is not hypothetical: on 2026-08-20 it shipped a landing page whose colour field had
+lost its height rule and drew sixteen full-size tabs stacked in a column. The stamp puts a
+content hash in the query string, so new HTML asks for a URL no browser has seen and the
+correct styles land on the next page view, with no hard reload and no shortened cache. It
+rewrites all four pages, including the flat `privacy.html` and `support.html`, and it is
+idempotent, so running it twice is free. **Run it after any hand edit to `caddy.css` or
+`caddy.js`, not just after `build-site.mjs`.**
 
 `src/tints.json` holds Caddy's sixteen `WorkspaceTint` hex values and is read by both
 `build-hero.mjs` and `build-site.mjs`, so the hero, the No Gravity panel and the colour
