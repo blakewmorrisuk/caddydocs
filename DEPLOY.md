@@ -103,6 +103,14 @@ real pages open in your browser. That is exactly the path App Review takes under
   files.user-selected.read-write, files.bookmarks.app-scope, and nothing else, so no
   network entitlement) and `mac/Resources/PrivacyInfo.xcprivacy`. If the app ever gains an
   entitlement, an analytics library, or an update check, the policy has to change first.
+- **Both pages were cut to the App Store minimum on 8/20/2026.** `/privacy` keeps exactly
+  the five things Guideline 5.1.1(i) requires (what is collected and how it is used; local
+  storage; retention; deletion, with the container path; third parties) plus a contact and
+  a changes clause. `/support` keeps a working contact, one orientation paragraph, and the
+  requirements, which is what Guideline 1.5 asks of a support URL. What left the pages is
+  documentation, not compliance: the entitlement list, the permissions section, the
+  children's clause, the shortcut list, and the six FAQs. The entitlement audit above is
+  still true, it just no longer appears on the page. Do not refill either page.
 
 ## Checking the router before you ship a change
 
