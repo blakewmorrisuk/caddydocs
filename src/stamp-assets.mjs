@@ -35,7 +35,7 @@ const FILES = ['caddy.css', 'caddy.js',
 
 // og:image is read by scrapers that may or may not keep a query string, and it is an
 // absolute URL rather than a page asset, so it is deliberately left unstamped.
-const SKIP = new Set(['assets/img/og.jpg']);
+const SKIP = new Set(['assets/img/og.jpg', 'assets/img/og-2026-08-24.jpg']);
 
 const V = Object.fromEntries(FILES.filter(f => !SKIP.has(f)).map(f => [f, hash(f)]));
 const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
