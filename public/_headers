@@ -13,3 +13,11 @@
 
 /caddy.js
   Cache-Control: public, max-age=3600
+
+/review.mp4
+  X-Robots-Tag: noindex, noarchive
+  Cache-Control: public, max-age=300
+
+/caddy-review.mp4
+  X-Robots-Tag: noindex, noarchive
+  Cache-Control: public, max-age=300

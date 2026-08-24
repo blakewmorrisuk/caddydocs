@@ -25,10 +25,12 @@ const here = new URL('./', import.meta.url);
 const pub = f => new URL(`../public/${f}`, here);
 const hash = f => createHash('sha256').update(readFileSync(pub(f))).digest('hex').slice(0, 10);
 
-const PAGES = ['index.html', 'privacy.html', 'support.html', '404.html'];
+const PAGES = ['index.html', 'privacy.html', 'support.html', 'press.html', '404.html'];
 
 // every versioned URL the pages may reference, relative to public/
-const FILES = ['caddy.css', 'caddy.js', ...readdirSync(pub('assets/img')).map(f => `assets/img/${f}`)]
+const FILES = ['caddy.css', 'caddy.js',
+  ...readdirSync(pub('assets/img')).map(f => `assets/img/${f}`),
+  ...readdirSync(pub('assets/press')).map(f => `assets/press/${f}`)]
   .filter(f => !f.endsWith('.DS_Store'));
 
 // og:image is read by scrapers that may or may not keep a query string, and it is an
