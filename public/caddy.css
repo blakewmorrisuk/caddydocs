@@ -144,6 +144,26 @@ a:hover { text-decoration-color: var(--accent); }
 .chip--b2 { filter: blur(0.4px); }
 .chip--b3 { filter: blur(1.6px); }
 
+/* ── the landing ────────────────────────────────────────────────────────────
+   Open the page and the whole room falls in, then the weightless drift takes
+   over. The fall rides the independent `translate` property, which composes
+   with the `transform` the drift rewrites every frame instead of fighting it.
+   Each piece is staggered by its own --p, the same phase number that keeps the
+   drift out of lockstep, so nothing lands in a row. Near things are heavy and
+   settle last. */
+@keyframes drop-in {
+  from { translate: 0 calc(-100svh - 160px); }
+  to   { translate: 0 0; }
+}
+.hero .chip,
+.hero .tab {
+  animation: drop-in var(--drop-time, 1.5s) cubic-bezier(0.22, 0.61, 0.3, 1) both;
+  animation-delay: calc(var(--p) * 0.00007s);
+}
+.hero .tab--b1, .hero .chip--b1 { --drop-time: 1.85s; }
+.hero .tab--b2, .hero .chip--b2 { --drop-time: 1.55s; }
+.hero .tab--b3, .hero .chip--b3 { --drop-time: 1.3s; }
+
 /* the lockup and the line */
 .hero__type { position: relative; z-index: 4; text-align: center; max-width: 46rem; }
 
@@ -193,6 +213,10 @@ a:hover { text-decoration-color: var(--accent); }
 .sub__whisper:hover { color: rgba(242, 245, 239, 0.44); }
 @media (prefers-contrast: more) { .sub__whisper { color: rgba(242, 245, 239, 0.5); } }
 @media (prefers-reduced-motion: reduce) { .sub__whisper { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero .chip, .hero .tab { animation: none; }
+  .store__badge::before, .store__badge::after { animation: none; }
+}
 
 /* App Store slot. Plain text until there is a real store URL to put behind a badge. */
 .store {
@@ -215,19 +239,53 @@ a:hover { text-decoration-color: var(--accent); }
 /* Live App Store badge. Apple's artwork is used unmodified and must be a real
    link to the app, so the pill chrome and the status dot come off. */
 .store--live {
-  flex-direction: column; align-items: flex-start; gap: 0.8rem;
+  flex-direction: column; align-items: center; gap: 0.8rem;
   padding: 0; border: 0; background: none; backdrop-filter: none;
 }
 .store--live::before { display: none; }
 .store__badge {
-  display: block; line-height: 0; border-radius: 9px;
+  display: block; line-height: 0; border-radius: 8px; position: relative;
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
+
+/* The laser that circles the badge. One head of light running the perimeter.
+   The ring is a conic gradient masked down to a hairline border, and only the
+   gradient's START ANGLE animates, so nothing actually rotates and the rounded
+   corners stay where they belong. @property is what makes an angle
+   interpolatable; where it is unsupported the ring simply sits still, which is
+   a perfectly good glow. */
+@property --laser-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.store__badge::before,
+.store__badge::after {
+  content: ""; position: absolute; pointer-events: none;
+  background: conic-gradient(from var(--laser-angle),
+    transparent 0deg,
+    transparent 228deg,
+    rgba(255, 122, 82, 0.45) 286deg,
+    var(--accent) 324deg,
+    #ffe2d4 340deg,
+    var(--accent) 348deg,
+    transparent 358deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: laser-circle 3.4s linear infinite;
+}
+/* the line */
+.store__badge::before { inset: -2px; border-radius: 10px; padding: 1.5px; }
+/* and its bloom: the same head, blurred and held a little wider */
+.store__badge::after  { inset: -7px; border-radius: 15px; padding: 3px; filter: blur(7px); opacity: 0.65; }
+
+@keyframes laser-circle { to { --laser-angle: 360deg; } }
 .store__badge:hover { opacity: 0.86; transform: translateY(-1px); }
 .store__badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
 .store__badge img { display: block; width: 180px; height: auto; }
 .store--live small { color: var(--text-faint); }
-.close .store--live { align-items: center; }
 
 .scroll-cue {
   position: absolute; left: 50%; bottom: 1.9rem; transform: translateX(-50%);
