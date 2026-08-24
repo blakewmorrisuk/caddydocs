@@ -46,3 +46,10 @@ const html = read('index.tpl.html')
 if (html.includes('{{')) throw new Error('unfilled placeholder in template');
 writeFileSync(new URL('../public/index.html', here), html);
 console.log('index.html', html.length, 'bytes');
+
+// The template links /caddy.css and /caddy.js unstamped, so a rebuild always hands
+// index.html back the un-versioned URLs. Cloudflare caches those for four hours and the
+// wrangler token on this Mac cannot purge, so an unstamped deploy ships new markup that
+// the edge dresses in old CSS. That happened on 2026-08-24 with the App Store badge.
+// Stamping is not an optional follow-up step; run it here so it cannot be forgotten.
+await import('./stamp-assets.mjs');
