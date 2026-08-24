@@ -212,6 +212,23 @@ a:hover { text-decoration-color: var(--accent); }
 }
 .store small { display: block; color: var(--text-faint); font-size: inherit; text-wrap: balance; }
 
+/* Live App Store badge. Apple's artwork is used unmodified and must be a real
+   link to the app, so the pill chrome and the status dot come off. */
+.store--live {
+  flex-direction: column; align-items: flex-start; gap: 0.8rem;
+  padding: 0; border: 0; background: none; backdrop-filter: none;
+}
+.store--live::before { display: none; }
+.store__badge {
+  display: block; line-height: 0; border-radius: 9px;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.store__badge:hover { opacity: 0.86; transform: translateY(-1px); }
+.store__badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.store__badge img { display: block; width: 180px; height: auto; }
+.store--live small { color: var(--text-faint); }
+.close .store--live { align-items: center; }
+
 .scroll-cue {
   position: absolute; left: 50%; bottom: 1.9rem; transform: translateX(-50%);
   z-index: 4; color: var(--text-faint); font-size: 0.6875rem;
