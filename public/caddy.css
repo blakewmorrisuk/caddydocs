@@ -542,3 +542,134 @@ code {
   .scroll-cue { display: none; }
   .foot__row { flex-direction: column; }
 }
+
+/* ─────────────────────────────────────  the repair notice  ── */
+
+/* Caddy came off the Mac App Store on 2026-08-24 because the introduction is
+   broken. The page opens on this: a Caddy tab labelled Introduction, wearing a
+   bandage, in the same room as the hero. It sits above the fixed nav (50) and
+   below the skip link (90). Without JS it is a plain first section and the page
+   carries on underneath it. */
+.notice {
+  position: fixed; inset: 0; z-index: 80;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 4rem var(--gutter) 3rem;
+  text-align: center;
+  color: var(--text);
+  background:
+    radial-gradient(58% 46% at 50% 40%, rgba(28, 68, 41, 0.18), transparent 68%),
+    radial-gradient(80% 70% at 50% 50%, var(--lift), var(--black) 72%);
+  overflow-y: auto;
+  outline: none;
+  transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.notice--out { opacity: 0; pointer-events: none; }
+.notice[hidden] { display: none; }
+html.notice-open { overflow: hidden; }
+.no-js .notice { position: relative; min-height: 100svh; }
+.no-js .notice__go { display: none; }
+
+/* the room the hurt tab floats in */
+/* auto margins centre the pair on a tall viewport and collapse on a short one, so
+   the tab is always reachable by scrolling; a centred grid would clip it off the top */
+.notice__room { position: relative; flex: none; width: min(100%, 34rem); height: clamp(190px, 32vh, 290px); margin-top: auto; }
+
+/* a real Caddy tab: full pill, hairline inner stroke, the label at 43% of the
+   height and the padding at 57%, which is 12 pt and 16 pt on the app's 28 pt pill */
+.notice .notice__tab {
+  --h: clamp(84px, 12.5vw, 136px);
+  --x: 50%; --y: 52%; --rot: -6; --p: 4200;
+  display: flex; align-items: center;
+  padding: 0 calc(var(--h) * 0.57);
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  color: var(--cream);
+  font-family: ui-rounded, "SF Pro Rounded", var(--sans);
+  font-weight: 600;
+  font-size: calc(var(--h) * 0.5);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  filter: drop-shadow(0 0 14px rgba(0, 0, 0, 0.65));
+}
+.notice__label { display: block; }
+
+/* the bandage, stuck across the label */
+.notice .bandage {
+  position: absolute; left: 50%; top: 50%;
+  width: calc(var(--h) * 1.25); height: auto;
+  translate: -50% -50%;
+  rotate: -40deg;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+}
+
+.notice__type { max-width: 36rem; margin-top: 0.4rem; margin-bottom: auto; }
+.notice .eyebrow { margin-bottom: 1.1rem; }
+.notice__title {
+  font-size: clamp(1.9rem, 4.6vw, 3.2rem);
+  color: var(--cream);
+  letter-spacing: -0.032em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.notice__line {
+  margin: 1.2rem auto 0; max-width: 31rem;
+  color: var(--text-soft);
+  font-size: clamp(0.95rem, 1.15vw, 1.0625rem); line-height: 1.55;
+  text-wrap: pretty;
+}
+.notice__refund {
+  margin: 1.4rem auto 0; max-width: 31rem;
+  color: var(--text-faint);
+  font-size: 0.9rem; line-height: 1.55;
+  text-wrap: pretty;
+}
+.notice__refund a { color: var(--text); }
+.notice__go {
+  appearance: none; margin-top: 2rem; cursor: pointer;
+  padding: 0.72rem 1.35rem;
+  border: 1px solid var(--rule); border-radius: 999px;
+  background: rgba(242, 245, 239, 0.06);
+  color: var(--cream);
+  font: inherit; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.01em;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+.notice__go:hover { border-color: var(--accent); background: rgba(242, 245, 239, 0.1); }
+
+/* the bandaged tab comes down from the top and hangs there; the words come up after it */
+@keyframes notice-drop { from { translate: 0 calc(-60vh - 240px); } to { translate: 0 0; } }
+@keyframes notice-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.js .notice__tab { animation: notice-drop 1.15s cubic-bezier(0.22, 0.61, 0.3, 1) both 0.2s; }
+.js .notice__type { animation: notice-rise 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both 1.35s; }
+@media (prefers-reduced-motion: reduce) {
+  .notice__tab, .notice__type { animation: none !important; }
+  .notice { transition: none; }
+}
+
+/* the store slots while Caddy is pulled: the plain pill, with the accent dot */
+.store--pulled { text-align: left; }
+.store--pulled > span { display: block; }
+
+/* the same news on the document pages, one line under the title */
+.pulled {
+  display: flex; align-items: center; gap: 1.1rem;
+  max-width: 40rem; margin: 0 0 2.4rem;
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--rule); border-radius: 14px;
+  background: linear-gradient(rgba(28, 68, 41, 0.16), rgba(28, 68, 41, 0.05));
+  font-size: 0.9375rem; line-height: 1.55;
+  color: var(--text-soft);
+}
+.pulled .bandage { flex: none; width: 66px; height: auto; rotate: -18deg; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35)); }
+.pulled p { margin: 0; text-wrap: pretty; }
+.pulled strong { color: var(--text); font-weight: 500; }
+.pulled a { color: var(--cream); }
+@media (max-width: 40rem) {
+  .notice { padding-top: 3rem; }
+  .notice__room { height: 190px; }
+  .notice .notice__tab { --h: 78px; }
+  .pulled { align-items: flex-start; }
+  .pulled .bandage { width: 48px; margin-top: 0.15rem; }
+}

@@ -34,6 +34,29 @@ const rail = RAIL
 
 const mark = read('mark.svg').trim();
 
+// ── Pulled from the store. Caddy came off the Mac App Store on 2026-08-24 because
+// the introduction is broken. While PULLED is true the homepage opens on the repair
+// notice and both store slots read as pulled. To restore: PULLED = false, run this
+// script, strip the <!-- pulled-notice --> blocks from support/press/privacy, and
+// deploy public/. The badge markup below is the approved one from 2026-08-24.
+const PULLED = true;
+
+const STORE_LIVE = `<p class="store store--live">
+        <a class="store__badge" href="https://apps.apple.com/app/id6802867430"
+           aria-label="Download Caddy Docs on the Mac App Store">
+          <img src="/assets/mac-app-store-badge.svg" alt="Download on the Mac App Store" width="180" height="46">
+        </a>
+        <small>$9.99 &middot; macOS 15 or later. Apple silicon and Intel.</small>
+      </p>`;
+
+const STORE_PULLED = `<p class="store store--pulled">
+        <span>Off the Mac App Store for repairs.<small>Back soon, with an introduction that works.</small></span>
+      </p>`;
+
+const notice = PULLED
+  ? read('notice.html').replace('{{BANDAGE}}', read('bandage.svg').trim().replaceAll('\n', '\n      ')) + '\n'
+  : '';
+
 const html = read('index.tpl.html')
   .replace('{{TAB_SYMBOLS}}', read('tab-symbols.svg'))
   .replace('{{HERO_TABS}}', read('hero-tabs.html').trimEnd())
@@ -41,6 +64,8 @@ const html = read('index.tpl.html')
   .replace('{{TINTS}}', tints)
   .replace('{{RAIL}}', rail)
   .replace('{{PANEL}}', read('panel.html').trimEnd())
+  .replace('{{NOTICE}}', notice)
+  .replaceAll('{{STORE}}', PULLED ? STORE_PULLED : STORE_LIVE)
   .replaceAll('{{MARK}}', mark);
 
 if (html.includes('{{')) throw new Error('unfilled placeholder in template');

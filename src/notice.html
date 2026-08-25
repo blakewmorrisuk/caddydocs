@@ -1,0 +1,20 @@
+<!-- The repair notice. Caddy came off the Mac App Store on 2026-08-24 because the
+     introduction is broken. The page opens on this until the visitor waves it away.
+     The tab is a real Caddy tab, drawn in HTML with the app's own proportions
+     (label at 43% of the pill height, padding at 57%), wearing the bandage. It
+     drifts like everything else on the page, because it is in a data-field. -->
+<div class="notice" id="notice" role="dialog" aria-modal="true" aria-labelledby="notice-title" tabindex="-1">
+  <div class="notice__room" data-field>
+    <div class="tab tab--b1 notice__tab" aria-hidden="true">
+      <span class="notice__label">Caddy</span>
+      {{BANDAGE}}
+    </div>
+  </div>
+  <div class="notice__type">
+    <p class="eyebrow">Temporarily off the Mac App Store</p>
+    <h1 class="notice__title" id="notice-title">Caddy&rsquo;s introduction is broken.</h1>
+    <p class="notice__line">Caddy is currently undergoing surgery and will be back after a quick recovery (Its tutorial video was so broken on some devices I pulled it)</p>
+    <p class="notice__refund">If you paid ten dollars and are really mad, email <a href="mailto:blake@caddydocs.com">blake@caddydocs.com</a> and I will give it back.</p>
+    <button class="notice__go" type="button">kick rocks button</button>
+  </div>
+</div>

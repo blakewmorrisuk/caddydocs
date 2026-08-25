@@ -35,6 +35,31 @@
     for (var i = 0; i < revealables.length; i++) io.observe(revealables[i]);
   }
 
+  /* ── the repair notice ───────────────────────────────────────────────── */
+
+  var notice = document.getElementById('notice');
+  if (notice) {
+    // the page behind is neither scrollable nor reachable until the notice is waved
+    // away; nothing is remembered, so a reload shows it again
+    var behind = [].slice.call(document.querySelectorAll('.nav, main, .foot'));
+    root.classList.add('notice-open');
+    behind.forEach(function (el) { el.setAttribute('inert', ''); });
+
+    var dismiss = function () {
+      if (notice.hidden || notice.classList.contains('notice--out')) return;
+      notice.classList.add('notice--out');
+      root.classList.remove('notice-open');
+      behind.forEach(function (el) { el.removeAttribute('inert'); });
+      document.removeEventListener('keydown', onKey);
+      window.setTimeout(function () { notice.hidden = true; }, reduce.matches ? 0 : 560);
+    };
+    var onKey = function (e) { if (e.key === 'Escape') dismiss(); };
+
+    notice.querySelector('.notice__go').addEventListener('click', dismiss);
+    document.addEventListener('keydown', onKey);
+    notice.focus({ preventScroll: true });
+  }
+
   /* ── the weightless fields ───────────────────────────────────────────── */
 
   var fields = document.querySelectorAll('[data-field]');
